@@ -1,0 +1,938 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>김나영내과의원</title>
+<meta name="description" content="진주 김나영내과의원 — 내과 전문의·소화기내시경 세부전문의 진료. 위·대장 내시경, 초음파, 국가암검진·종합검진, 고혈압·당뇨 관리, 예방접종. 진주대로 957 (미래여성병원) 신관 2층, 055-755-7502">
+<meta property="og:type" content="website">
+<meta property="og:title" content="김나영내과의원">
+<meta property="og:description" content="한 분 한 분, 친절하고 꼼꼼하게. 진주 진주대로 957 (미래여성병원) 신관 2층 · 055-755-7502">
+<meta property="og:locale" content="ko_KR">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<style>
+/* 레이아웃: 동네 의원 안내판처럼 위에서 아래로 읽는 한 줄 흐름. 어르신 기준 큰 글씨, 병원 파란색 하나만 강조. */
+:root {
+  --bg: #f3f5f8; --surface: #ffffff; --sunk: #e9eef4; --fg: #152131; --muted: #566476; --line: #d6dee8;
+  --accent: #1f5aa6; --accent-ink: #ffffff; --accent-soft: #e2ebf7;
+  --ok: #2d7d4f; --ok-soft: #e0f1e6; --warn: #a3650c; --warn-soft: #f8ecd9; --danger: #b23a2e; --danger-soft: #f8e3e0;
+  --admin: #6b4fa0; --admin-soft: #ece6f5; --scrim: rgba(15, 22, 32, .45);
+  --font: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0f1620; --surface: #162130; --sunk: #1d2a3b; --fg: #e4eaf2; --muted: #98a6b8; --line: #2a3a4e;
+  --accent: #7fb0ec; --accent-ink: #0d1726; --accent-soft: #1c2b42;
+  --ok: #6cc58f; --ok-soft: #1b3326; --warn: #e2a85a; --warn-soft: #3a2c17; --danger: #ec7f73; --danger-soft: #3d201d;
+  --admin: #b9a2e6; --admin-soft: #2b2340; --scrim: rgba(0, 0, 0, .6); color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #0f1620; --surface: #162130; --sunk: #1d2a3b; --fg: #e4eaf2; --muted: #98a6b8; --line: #2a3a4e;
+  --accent: #7fb0ec; --accent-ink: #0d1726; --accent-soft: #1c2b42;
+  --ok: #6cc58f; --ok-soft: #1b3326; --warn: #e2a85a; --warn-soft: #3a2c17; --danger: #ec7f73; --danger-soft: #3d201d;
+  --admin: #b9a2e6; --admin-soft: #2b2340; --scrim: rgba(0, 0, 0, .6); color-scheme: dark; }
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; word-break: keep-all; overflow-wrap: break-word; background: var(--bg); color: var(--fg);
+  font-family: var(--font); font-size: 17px; line-height: 1.6; }
+[hidden] { display: none !important; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+section[id] { scroll-margin-top: calc(70px + env(safe-area-inset-top, 0px)); }
+
+/* 상단 메뉴 */
+.nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: var(--surface); border-bottom: 1px solid var(--line); }
+.nav .in { max-width: 1040px; margin: 0 auto; padding-inline: 16px; padding-block: 10px; display: flex; align-items: center; gap: 12px; }
+.brand { font-weight: 700; font-size: 19px; color: var(--fg); text-decoration: none; white-space: nowrap; }
+.brand b { color: var(--accent); }
+.nav .links { display: flex; gap: 18px; margin-left: auto; font-size: 15.5px; }
+.nav .links a { color: var(--muted); text-decoration: none; }
+.nav .links a:hover { color: var(--fg); }
+.nav .cta { background: var(--accent); color: var(--accent-ink); text-decoration: none; padding: 8px 14px; border-radius: 99px;
+  font-size: 15px; font-weight: 600; white-space: nowrap; }
+@media (max-width: 760px) { .nav .links { display: none; } .nav .cta { margin-left: auto; } }
+
+/* 관리자 띠 */
+.adminbar { background: var(--admin-soft); color: var(--admin); font-size: 15px; }
+.adminbar .in { max-width: 1040px; margin: 0 auto; padding-inline: 16px; padding-block: 8px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.adminbar b { font-weight: 700; }
+.adminbar .sp { flex: 1; }
+.adminbar button { font: inherit; font-size: 14px; color: var(--admin); background: transparent; border: 1px solid currentColor; border-radius: 99px; padding: 4px 12px; cursor: pointer; }
+body:not(.admin) .admin-only { display: none !important; }
+
+.page { max-width: 1040px; margin: 0 auto; padding-inline: 16px; }
+
+/* 첫 화면 */
+.hero { padding-block: 48px 40px; display: grid; gap: 16px; }
+.hero h1 { margin: 0; font-size: clamp(32px, 6vw, 52px); line-height: 1.25; text-wrap: balance; letter-spacing: -.01em; }
+.hero h1 b { color: var(--accent); }
+.hero h1 .h1-sub { font-size: .5em; line-height: 1.4; display: inline-block; margin-bottom: .15em; }
+.hero p { margin: 0; color: var(--muted); max-width: 34em; font-size: 18.5px; }
+.hero .acts { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
+.hero .acts a { text-decoration: none; padding: 14px 22px; border-radius: 12px; font-weight: 600; font-size: 18px; }
+@media (max-width: 460px) { .hero .acts { gap: 6px; } .hero .acts a { padding: 12px 11px; font-size: 15.5px; } }
+@media (max-width: 380px) { .hero .acts { gap: 5px; } .hero .acts a { padding: 11px 8px; font-size: 14.5px; } }
+.a-main { background: var(--accent); color: var(--accent-ink); }
+.a-sub { border: 1.5px solid var(--line); color: var(--fg); background: var(--surface); }
+.today { display: inline-flex; align-items: center; gap: 8px; font-size: 16px; color: var(--muted); }
+.dot { width: 10px; height: 10px; border-radius: 50%; background: var(--muted); flex: none; }
+.dot.open { background: var(--ok); }
+.pinbar { display: flex; gap: 10px; align-items: baseline; text-decoration: none; color: var(--fg); background: var(--accent-soft);
+  border-radius: 12px; padding: 12px 14px; font-size: 16.5px; max-width: 46em; }
+.pinbar .k { color: var(--accent); font-weight: 700; white-space: nowrap; }
+.pinbar .t { min-width: 0; overflow-wrap: anywhere; }
+
+/* 섹션 */
+.blk { padding-block: 40px; border-top: 1px solid var(--line); }
+.blk-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
+.blk h2 { margin: 0; font-size: 27px; text-wrap: balance; }
+.blk .lead { margin: 4px 0 0; color: var(--muted); }
+.note { font-size: 15.5px; color: var(--muted); margin: 10px 0 0; }
+.need { display: inline-block; font-size: 12px; font-weight: 600; color: var(--warn); background: var(--warn-soft); border-radius: 4px; padding: 0 6px; margin-left: 6px; vertical-align: 2px; }
+.ex { font-size: 11.5px; color: var(--admin); background: var(--admin-soft); border-radius: 4px; padding: 0 5px; margin-left: 6px; font-weight: 500; vertical-align: 2px; }
+
+/* 버튼 */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 12px 18px; border: 0; border-radius: 10px;
+  background: var(--accent); color: var(--accent-ink); font: inherit; font-size: 16px; font-weight: 600; cursor: pointer; text-decoration: none; }
+.btn:disabled { opacity: .5; cursor: default; }
+.btn.ghost { background: var(--surface); color: var(--accent); border: 1px solid var(--accent); }
+.btn.danger { background: var(--danger); color: #fff; }
+.btn.plain { background: transparent; color: var(--muted); border: 1px solid var(--line); }
+.btn.admin { background: var(--admin); color: #fff; }
+.btn.sm { padding: 7px 12px; font-size: 14.5px; border-radius: 8px; }
+.btn.wide { width: 100%; }
+.mini { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 12px; }
+.mini button { padding: 6px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); color: var(--fg);
+  font: inherit; font-size: 14px; cursor: pointer; }
+.mini button.del { color: var(--danger); border-color: var(--danger); }
+
+/* 공지 목록 */
+.list { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
+.list details { border-top: 1px solid var(--line); }
+.list details:first-child { border-top: 0; }
+.list summary { list-style: none; cursor: pointer; padding: 15px 18px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 14px; align-items: baseline; }
+.list summary::-webkit-details-marker { display: none; }
+.list summary .tt { font-weight: 600; overflow-wrap: anywhere; }
+.list summary .dt { color: var(--muted); font-size: 14.5px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.list summary .chev { color: var(--muted); font-size: 14px; transition: transform .15s; }
+.list details[open] summary .chev { transform: rotate(180deg); }
+.list .body { padding: 0 18px 18px; white-space: pre-wrap; overflow-wrap: anywhere; }
+.list .empty { padding: 18px; color: var(--muted); margin: 0; }
+.tag-pin { font-size: 12px; font-weight: 700; color: var(--accent-ink); background: var(--accent); border-radius: 4px; padding: 1px 6px; margin-right: 8px; vertical-align: 2px; }
+.more { margin-top: 12px; }
+
+/* 진료 안내·의료진 */
+.svc { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+.svc article { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px; display: grid; gap: 6px; align-content: start; }
+.svc h3 { margin: 0; font-size: 19.5px; }
+.svc p { margin: 0; color: var(--muted); font-size: 16px; }
+.svc .tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.svc .tags span { font-size: 13.5px; background: var(--accent-soft); color: var(--accent); padding: 2px 9px; border-radius: 99px; }
+.doc { display: block; }
+.svc article.key { border-color: var(--accent); box-shadow: inset 0 3px 0 var(--accent); }
+.doc-main { min-width: 0; }
+.creds { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.creds { gap: 8px 10px; margin-top: 10px; }
+.creds span { font-size: 23px; font-weight: 700; line-height: 1.3; color: var(--accent); background: var(--accent-soft); border-radius: 12px; padding: 6px 16px; }
+.cv { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px 28px; margin-top: 20px; }
+.cv h4 { margin: 0 0 6px; font-size: 15px; color: var(--muted); font-weight: 600; letter-spacing: .02em; }
+.cv ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; font-size: 16.5px; }
+.doc .ph { aspect-ratio: 3/4; max-width: 100%; border-radius: 12px; background: var(--sunk); display: grid; place-items: center; color: var(--muted); font-size: 13px; text-align: center; padding: 8px; }
+.doc h3 { margin: 0; font-size: 30px; line-height: 1.3; }
+.doc h3 small { font-size: 20px; color: var(--muted); font-weight: 500; margin-left: 4px; }
+
+/* 비급여 진료비 (별도 창) */
+dialog.wide { width: min(1000px, calc(100vw - 24px)); }
+.dlg-head { position: sticky; top: 0; z-index: 1; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;
+  padding: 20px 20px 14px; background: var(--surface); border-bottom: 1px solid var(--line); }
+.dlg-head h3 { margin: 0; font-size: 23px; }
+.dlg-head .hint { margin: 2px 0 0; color: var(--muted); font-size: 15px; }
+.dlg-body { padding: 18px 20px 20px; }
+.dlg-body .note { margin-top: 0; }
+@media (max-width: 460px) { dialog.wide { width: 100vw; max-width: 100vw; max-height: 100dvh; height: 100dvh; border-radius: 0; margin: 0; }
+  .dlg-head { padding: calc(14px + env(safe-area-inset-top, 0px)) 16px 12px; } .dlg-body { padding: 14px 16px calc(24px + env(safe-area-inset-bottom, 0px)); } }
+.fees { columns: 2 340px; column-gap: 16px; }
+.fee { break-inside: avoid; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px 18px 10px; margin-bottom: 16px; }
+.fee h3 { margin: 0; font-size: 19px; }
+.fee-note { margin: 2px 0 0; font-size: 14px; color: var(--muted); }
+.fee table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 16.5px; }
+.fee th, .fee td { padding: 9px 0; border-top: 1px solid var(--line); vertical-align: top; }
+.fee th { text-align: left; font-weight: 500; padding-right: 12px; }
+.fee td { text-align: right; font-weight: 700; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.fee small { display: block; font-size: 13.5px; color: var(--muted); font-weight: 400; }
+
+/* 진료시간·오시는 길 */
+.two { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px; align-items: start; }
+.two > div { min-width: 0; }
+.two h2 { margin-bottom: 14px; }
+table.sched { width: 100%; border-collapse: collapse; font-size: 17.5px; font-variant-numeric: tabular-nums; }
+table.sched th, table.sched td { text-align: left; padding: 11px 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
+table.sched th { width: 1%; white-space: nowrap; padding-right: 22px; font-weight: 700; letter-spacing: .04em; }
+table.sched .half { font-size: 15px; font-weight: 500; margin-left: 4px; letter-spacing: 0; }
+table.sched tr.is-today th, table.sched tr.is-today td { color: var(--accent); font-weight: 600; }
+table.sched td.off { color: var(--danger); }
+table.sched .brk { display: block; font-size: 14.5px; color: var(--muted); font-weight: 400; }
+.closed-up { margin: 14px 0 0; padding: 12px 14px; background: var(--danger-soft); border-radius: 10px; font-size: 16px; }
+.closed-up b { color: var(--danger); }
+.closed-up ul { margin: 6px 0 0; padding-left: 18px; }
+.info dl { display: grid; grid-template-columns: 70px minmax(0, 1fr); font-size: 17.5px; margin: 0; gap: 12px 12px; }
+.info dt { color: var(--muted); }
+.info dd { margin: 0; }
+.info a { color: var(--accent); }
+.linkrow { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+
+footer.foot { border-top: 1px solid var(--line); margin-top: 20px; padding-block: 26px 44px; font-size: 14.5px; color: var(--muted); }
+footer.foot .page { display: grid; gap: 4px; }
+footer.foot b { color: var(--fg); }
+footer.foot .adminlink { justify-self: start; margin-top: 12px; background: none; border: 0; padding: 0; font: inherit; font-size: 13px; color: var(--muted); text-decoration: underline; cursor: pointer; }
+
+.loading { color: var(--muted); padding: 18px; margin: 0; }
+.loadfail { color: var(--danger); padding: 18px; margin: 0; }
+
+/* 창(dialog) */
+dialog { border: 0; border-radius: 16px; padding: 0; width: min(560px, calc(100vw - 24px)); max-height: calc(100dvh - 32px);
+  background: var(--surface); color: var(--fg); box-shadow: 0 20px 60px rgba(0,0,0,.25); }
+dialog::backdrop { background: var(--scrim); }
+dialog form { display: grid; gap: 4px; padding: 22px 20px 20px; }
+dialog h3 { margin: 0 0 6px; font-size: 21px; }
+dialog label { display: block; font-weight: 600; font-size: 15px; margin-top: 12px; margin-bottom: 4px; }
+dialog input, dialog textarea, dialog select { width: 100%; padding: 11px 12px; font: inherit; font-size: 16px; border: 1px solid var(--line);
+  border-radius: 9px; background: var(--surface); color: var(--fg); }
+dialog textarea { min-height: 180px; resize: vertical; line-height: 1.6; }
+dialog .chk { display: flex; gap: 8px; align-items: center; margin-top: 14px; font-size: 15.5px; }
+dialog .chk input { width: auto; }
+dialog .chk label { margin: 0; font-weight: 400; }
+dialog .hint { color: var(--muted); font-size: 14px; margin: 4px 0 0; }
+dialog .err { color: var(--danger); font-size: 14.5px; min-height: 1.3em; margin-top: 10px; }
+dialog .acts { display: flex; gap: 8px; justify-content: flex-end; margin-top: 8px; flex-wrap: wrap; }
+dialog .demo-hint { background: var(--admin-soft); color: var(--admin); border-radius: 8px; padding: 8px 10px; font-size: 14px; margin-top: 8px; }
+.hedit { margin-top: 8px; }
+.hrow { display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; padding-block: 10px; border-top: 1px solid var(--line); }
+.hrow:first-child { border-top: 0; }
+@media (min-width: 620px) { .hrow { grid-template-columns: 110px minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 10px; } }
+.hrow .day { display: flex; align-items: center; gap: 8px; font-weight: 700; margin: 0; font-size: 16px; }
+.hrow .day input { width: 20px; height: 20px; margin: 0; }
+.hrow .day span { font-weight: 400; color: var(--muted); font-size: 13.5px; }
+.hrow .tr { display: grid; grid-template-columns: 34px minmax(0, 1fr) auto minmax(0, 1fr); gap: 6px; align-items: center; font-size: 14px; }
+.hrow .tr b { font-weight: 500; color: var(--muted); }
+.hrow input[type=time] { padding: 7px 6px; font-size: 15px; min-width: 0; }
+.hrow.closed .tr { opacity: .4; }
+.addrow { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.addrow input { flex: 1 1 150px; min-width: 0; }
+.crow { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding-block: 9px; border-top: 1px solid var(--line); }
+.crow:first-child { border-top: 0; }
+.clist { margin-top: 10px; }
+.vh { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; clip: rect(0 0 0 0); }
+.lbl-row { display: flex; align-items: baseline; gap: 8px; margin-top: 14px; }
+.lbl-row .lbl { font-weight: 600; font-size: 15px; }
+.thumbs { display: grid; grid-template-columns: repeat(auto-fill, minmax(88px, 1fr)); gap: 8px; margin-top: 6px; }
+.thumbs:empty { display: none; }
+.thumb { position: relative; aspect-ratio: 1; border-radius: 10px; overflow: hidden; background: var(--sunk); border: 1px solid var(--line); }
+.thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.thumb button { position: absolute; top: 4px; right: 4px; width: 28px; height: 28px; border-radius: 50%; border: 0;
+  background: rgba(0,0,0,.6); color: #fff; font-size: 16px; line-height: 1; cursor: pointer; }
+.thumb .new { position: absolute; left: 4px; bottom: 4px; font-size: 11px; background: var(--admin); color: #fff; border-radius: 4px; padding: 0 5px; }
+.addimg { justify-self: start; margin-top: 8px; cursor: pointer; }
+
+.nimgs { display: grid; gap: 10px; margin-top: 14px; max-width: 720px; }
+.nimgs a { display: block; }
+.nimgs img { width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--line); display: block; background: var(--sunk); }
+.has-img { font-size: 12.5px; color: var(--muted); border: 1px solid var(--line); border-radius: 4px; padding: 0 6px; margin-left: 8px; font-weight: 500; vertical-align: 2px; white-space: nowrap; }
+.toast { position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); z-index: 50;
+  background: var(--fg); color: var(--bg); padding: 10px 18px; border-radius: 99px; font-size: 15px; box-shadow: 0 6px 20px rgba(0,0,0,.2); }
+@media (prefers-reduced-motion: no-preference) { .btn, .mini button { transition: background .15s, color .15s; } }
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="주요 메뉴">
+  <div class="in">
+    <a class="brand" href="#top"><b>김나영</b>내과의원</a>
+    <div class="links">
+      <a href="#notice">공지사항</a><a href="#care">진료 안내</a><a href="#doctor">의료진</a>
+      <a href="#fees" data-fees>비급여 진료비</a><a href="#hours">진료시간</a><a href="#map">오시는 길</a>
+    </div>
+    <a class="cta" href="#hours">진료시간</a>
+  </div>
+</nav>
+
+<div class="adminbar" id="adminbar" hidden>
+  <div class="in">
+    <b>관리자 모드</b><span>각 메뉴의 보라색 버튼으로 글을 쓰고 고칠 수 있습니다.</span>
+    <span class="sp"></span>
+    <button type="button" id="logoutBtn">로그아웃</button>
+  </div>
+</div>
+
+<main id="top">
+  <div class="page">
+    <section class="hero">
+      <a class="pinbar" id="pinbar" href="#notice" hidden></a>
+      <h1><span class="h1-sub">한 분 한 분,<br>친절하고 꼼꼼하게</span><br><b>김나영내과의원</b>입니다</h1>
+      <p>일반 내과 진료부터 위·대장 내시경, 초음파, 혈압·당뇨 관리, 건강검진까지 한 곳에서 꾸준히 살펴드립니다.</p>
+      <span class="today"><span class="dot" id="todayDot"></span><span id="todayText"></span></span>
+      <div class="acts">
+        <a class="a-main" href="#hours">진료시간 보기</a>
+        <a class="a-sub" href="#map">오시는 길</a>
+        <a class="a-sub" href="#fees" data-fees>비급여 진료비</a>
+      </div>
+    </section>
+
+    <section class="blk" id="notice">
+      <div class="blk-head">
+        <div>
+          <h2>공지사항</h2>
+          <p class="lead">휴진·진료시간 변경, 접종 일정 등 병원 소식을 알려드립니다.</p>
+        </div>
+        <button class="btn admin sm admin-only" type="button" id="newNotice">+ 공지 쓰기</button>
+      </div>
+      <div class="list" id="noticeList"><p class="loading">공지사항을 불러오는 중입니다…</p></div>
+      <button class="btn plain wide more" id="noticeMore" type="button" hidden>공지 더 보기</button>
+    </section>
+
+    <section class="blk" id="care">
+      <div class="blk-head">
+        <div>
+          <h2>진료 안내</h2>
+          <p class="lead">내과 전문의이자 소화기내시경 세부전문의가 진료부터 검사, 검진까지 직접 살펴드립니다.</p>
+        </div>
+      </div>
+      <div class="svc">
+        <article><h3>내과 전문 진료</h3><p>감기·몸살, 소화불량, 복통, 어지럼증 등 몸이 불편할 때 먼저 찾는 진료입니다.</p></article>
+        <article class="key"><h3>위·대장 내시경</h3><p>소화기내시경 세부전문의가 직접 검사하고, 검사 중 발견된 용종은 그 자리에서 떼어 냅니다.</p>
+          <div class="tags"><span>위내시경</span><span>대장내시경</span><span>용종절제술</span></div></article>
+        <article><h3>초음파 검사</h3><p>몸 안의 장기와 혈관 상태를 살펴봅니다.</p>
+          <div class="tags"><span>복부</span><span>심장</span><span>경동맥</span><span>갑상선</span></div></article>
+        <article><h3>기본 검사</h3><p>진료에 필요한 검사를 병원 안에서 바로 받을 수 있습니다.</p>
+          <div class="tags"><span>심전도</span><span>폐기능검사</span><span>혈액검사</span><span>소변검사</span><span>대변검사</span></div></article>
+        <article><h3>건강검진</h3><p>국가암검진과 종합검진을 받으실 수 있습니다.</p>
+          <div class="tags"><span>국가암검진 (위암·대장암·간암)</span><span>종합검진</span></div></article>
+        <article><h3>일차의료 만성질환관리</h3><p>고혈압·당뇨가 있는 분의 혈압과 혈당을 정기적으로 살피고 꾸준히 관리해 드립니다.</p>
+          <div class="tags"><span>고혈압</span><span>당뇨</span></div></article>
+        <article><h3>금연클리닉</h3><p>담배를 끊고 싶은 분께 상담과 처방으로 금연을 도와드립니다.</p></article>
+        <article><h3>비만치료</h3><p>체중 관리가 필요한 분께 상담과 처방으로 체중 조절을 도와드립니다.</p></article>
+        <article><h3>수액치료</h3><p>기력이 떨어지거나 몸이 지쳤을 때 수액으로 회복을 돕습니다.</p></article>
+        <article><h3>성인예방접종</h3><p>독감 등 성인에게 필요한 예방접종을 합니다.</p></article>
+      </div>
+    </section>
+
+    <section class="blk" id="doctor">
+      <div class="blk-head"><h2>의료진</h2></div>
+      <div class="doc">
+        <div class="doc-main">
+          <h3>김나영 <small>원장</small></h3>
+          <div class="creds"><span>내과 전문의</span><span>소화기내시경 세부전문의</span></div>
+          <div class="cv">
+            <div><h4>학력</h4><ul>
+              <li>경남과학고등학교 졸업</li>
+              <li>경상국립대학교 의과대학 졸업</li>
+              <li>의학석사·박사과정 수료</li>
+            </ul></div>
+            <div><h4>경력</h4><ul>
+              <li>경상국립대학교병원 내과 전공의</li>
+              <li>경상국립대학교병원 소화기내과 임상강사</li>
+              <li>진주제일병원 내과과장</li>
+            </ul></div>
+            <div><h4>학회 활동</h4><ul>
+              <li>대한내과학회 정회원</li>
+              <li>대한소화기내시경학회 평생회원</li>
+              <li>대한임상초음파학회 평생회원</li>
+              <li>한국심초음파학회 회원</li>
+              <li>대한간학회 회원</li>
+            </ul></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="blk" id="hours">
+      <div class="two">
+        <div>
+          <h2>진료시간</h2>
+          <table class="sched"><tbody id="schedBody"></tbody></table>
+          <p class="note">공휴일은 휴진합니다.</p>
+          <div class="closed-up" id="closedUp" hidden></div>
+          <div class="mini admin-only">
+            <button type="button" id="editHours" class="adm">진료시간 수정</button>
+            <button type="button" id="editClosed" class="adm">휴진일 관리</button>
+          </div>
+        </div>
+        <div id="map" class="info">
+          <h2>오시는 길</h2>
+          <dl>
+            <dt>주소</dt><dd>경남 진주시 진주대로 957 (미래여성병원) 신관 2층</dd>
+            <dt>전화</dt><dd><a href="tel:0557557502">055-755-7502</a></dd>
+            <dt>팩스</dt><dd>055-755-7503</dd>
+            <dt>주차</dt><dd>미래여성병원 주차장<br>제일유료주차장</dd>
+          </dl>
+          <div class="linkrow">
+            <a class="btn ghost" href="https://naver.me/G4dpbMC8" target="_blank" rel="noopener">네이버 지도로 보기</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="page">
+    <b>김나영내과의원</b>
+    <span>경남 진주시 진주대로 957 (미래여성병원) 신관 2층 · 전화 055-755-7502 · 팩스 055-755-7503</span>
+    <span>대표자 김나영 · 사업자등록번호 382-94-00629</span>
+    <button class="adminlink" type="button" id="adminLink">관리자</button>
+  </div>
+</footer>
+
+<!-- ===== 관리자 창 ===== -->
+<dialog id="feesDlg" class="wide" aria-labelledby="feesTitle">
+  <div class="dlg-head">
+    <div>
+      <h3 id="feesTitle">비급여 진료비</h3>
+      <p class="hint">건강보험이 적용되지 않는 항목의 비용입니다.</p>
+    </div>
+    <button class="btn plain sm" type="button" data-close>닫기</button>
+  </div>
+  <div class="dlg-body">
+      <div class="fees">
+        <div class="fee">
+          <h3>내시경 수면료</h3><p class="fee-note">검사 비용은 별도입니다</p>
+          <table><tbody><tr><th scope="row">위내시경</th><td>5만원</td></tr><tr><th scope="row">대장내시경</th><td>7만원</td></tr><tr><th scope="row">위 + 대장 내시경</th><td>11만원</td></tr></tbody></table>
+        </div>
+        <div class="fee">
+          <h3>초음파</h3>
+          <table><tbody><tr><th scope="row">갑상선</th><td>4만원</td></tr><tr><th scope="row">경동맥</th><td>4만원</td></tr><tr><th scope="row">갑상선 + 경동맥</th><td>6만원</td></tr><tr><th scope="row">상복부</th><td>6만원</td></tr><tr><th scope="row">심장</th><td>10만원</td></tr></tbody></table>
+        </div>
+        <div class="fee">
+          <h3>예방접종</h3>
+          <table><tbody><tr><th scope="row">폐렴구균 21가</th><td>15만원</td></tr><tr><th scope="row">대상포진 (싱그릭스)</th><td>1회 23만원<small>총 2회 접종</small></td></tr><tr><th scope="row">A형 간염</th><td>7만원</td></tr><tr><th scope="row">B형 간염</th><td>3만원</td></tr><tr><th scope="row">Td <small>파상풍·디프테리아</small></th><td>3만원</td></tr><tr><th scope="row">Tdap <small>파상풍·디프테리아·백일해</small></th><td>5만원</td></tr></tbody></table>
+        </div>
+        <div class="fee">
+          <h3>독감 · 코로나</h3>
+          <table><tbody><tr><th scope="row">인플루엔자 백신 (3가)</th><td>3만원</td></tr><tr><th scope="row">페라미비르 주사</th><td>7만원</td></tr><tr><th scope="row">인플루엔자 항원 검사</th><td>2만원</td></tr><tr><th scope="row">인플루엔자 + 코로나 항원 검사</th><td>2만 5천원</td></tr></tbody></table>
+        </div>
+        <div class="fee">
+          <h3>주사</h3>
+          <table><tbody><tr><th scope="row">백옥주사 · 마늘주사</th><td>3만원</td></tr><tr><th scope="row">태반주사</th><td>2만 5천원</td></tr><tr><th scope="row">면역주사</th><td>4만원</td></tr><tr><th scope="row">영양제</th><td>3만원 ~ 7만원</td></tr><tr><th scope="row">비타민 D <small>10만 IU / 30만 IU</small></th><td>3만원 / 5만원</td></tr></tbody></table>
+        </div>
+        <div class="fee">
+          <h3>원내 처방</h3>
+          <table><tbody><tr><th scope="row">위고비 0.25mg</th><td>27만원</td></tr><tr><th scope="row">위고비 0.5mg</th><td>28만원</td></tr><tr><th scope="row">위고비 1.0mg</th><td>30만원</td></tr><tr><th scope="row">위고비 1.7mg</th><td>37만원</td></tr><tr><th scope="row">위고비 2.4mg</th><td>42만원</td></tr><tr><th scope="row">삭센다</th><td>11만원</td></tr><tr><th scope="row">연속혈당측정기</th><td>8만 5천원</td></tr></tbody></table>
+        </div>
+        <div class="fee">
+          <h3>서류 발급</h3><p class="fee-note">재발급은 반값입니다 (CD 제외)</p>
+          <table><tbody><tr><th scope="row">일반 진단서 · 소견서</th><td>1만원</td></tr><tr><th scope="row">CD 복사</th><td>1만원</td></tr><tr><th scope="row">시술(수술) 확인서</th><td>5천원</td></tr><tr><th scope="row">진료(통원) 확인서</th><td>2천원</td></tr><tr><th scope="row">진료기록부 사본</th><td>2천원</td></tr><tr><th scope="row">예방접종 증명서</th><td>1천원</td></tr></tbody></table>
+        </div>
+      </div>
+      <p class="note">비용은 병원 사정에 따라 바뀔 수 있습니다. 자세한 내용은 접수처(055-755-7502)에 문의해 주세요.</p>
+  </div>
+</dialog>
+
+<dialog id="loginDlg" aria-labelledby="loginTitle">
+  <form id="loginForm" novalidate>
+    <h3 id="loginTitle">관리자 로그인</h3>
+    <label for="loginPw">비밀번호</label>
+    <input id="loginPw" type="password" autocomplete="current-password">
+    <p class="demo-hint" id="demoHint" hidden>시연 화면입니다. 비밀번호 demo 로 들어가 보세요. 여기서 쓴 글은 새로고침하면 사라집니다.</p>
+    <div class="err" id="loginErr" role="alert"></div>
+    <div class="acts">
+      <button class="btn plain" type="button" data-close>닫기</button>
+      <button class="btn" type="submit" id="loginBtn">로그인</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="noticeDlg" aria-labelledby="noticeTitle">
+  <form id="noticeForm" novalidate>
+    <h3 id="noticeTitle">공지 쓰기</h3>
+    <label for="nTitle">제목</label>
+    <input id="nTitle" maxlength="60" placeholder="예: 11월 3일(화) 학회 휴진 안내">
+    <label for="nBody">내용</label>
+    <textarea id="nBody" maxlength="3000" placeholder="환자분들께 알릴 내용을 적어 주세요. 줄을 바꾸면 그대로 보입니다."></textarea>
+    <span class="lbl-row"><span class="lbl">사진</span><span class="hint" id="nImgCount"></span></span>
+    <div class="thumbs" id="nThumbs"></div>
+    <button class="btn ghost sm addimg" id="nAddImg" type="button">사진 첨부</button>
+    <input type="file" id="nFile" accept="image/*" multiple class="vh" tabindex="-1" aria-hidden="true">
+    <p class="hint">최대 5장까지 올릴 수 있습니다. 큰 사진은 올릴 때 자동으로 줄어듭니다.</p>
+    <div class="chk"><input type="checkbox" id="nPin"><label for="nPin">맨 위에 고정 (첫 화면에도 크게 표시)</label></div>
+    <div class="err" id="nErr" role="alert"></div>
+    <div class="acts">
+      <button class="btn plain" type="button" data-close>취소</button>
+      <button class="btn" type="submit" id="nSave">올리기</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="hoursDlg" aria-labelledby="hoursTitle">
+  <form id="hoursForm" novalidate>
+    <h3 id="hoursTitle">진료시간 수정</h3>
+    <p class="hint">쉬는 요일은 체크를 빼 주세요. 점심시간이 없는 요일은 점심 칸을 비워 두세요.</p>
+    <div class="hedit" id="hoursBody"></div>
+    <div class="err" id="hErr" role="alert"></div>
+    <div class="acts">
+      <button class="btn plain" type="button" data-close>취소</button>
+      <button class="btn" type="submit" id="hSave">저장</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="closedDlg" aria-labelledby="closedTitle">
+  <form id="closedForm" novalidate>
+    <h3 id="closedTitle">휴진일 관리</h3>
+    <p class="hint">명절·학회 등으로 쉬는 날을 넣으면 진료시간 아래 '휴진 예정일'에 표시되고, 그날은 첫 화면에 '오늘은 휴진입니다'로 나옵니다.</p>
+    <label for="cDay">날짜</label>
+    <div class="addrow">
+      <input type="date" id="cDay">
+      <input id="cReason" maxlength="40" placeholder="사유 (예: 학회)" aria-label="사유">
+      <button class="btn sm" type="submit" id="cAdd">추가</button>
+    </div>
+    <div class="err" id="cErr" role="alert"></div>
+    <div class="clist" id="cList"></div>
+    <div class="acts">
+      <button class="btn plain" type="button" data-close>닫기</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="confirmDlg" aria-labelledby="confirmTitle">
+  <form id="confirmForm" novalidate>
+    <h3 id="confirmTitle">삭제할까요?</h3>
+    <p id="confirmText" style="margin:0"></p>
+    <div class="err" id="confirmErr" role="alert"></div>
+    <div class="acts">
+      <button class="btn plain" type="button" data-close>그만두기</button>
+      <button class="btn danger" type="submit" id="confirmBtn">삭제</button>
+    </div>
+  </form>
+</dialog>
+
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+/* =========================================================
+ * 설정: 구글 Apps Script를 배포한 뒤 받은 웹 앱 주소를 넣으세요.
+ * 비워 두면 시연 모드(비밀번호 demo, 저장 안 됨)로 동작합니다.
+ * ========================================================= */
+const API_URL = 'https://script.google.com/macros/s/AKfycbz86ZcRffuO0267RD0LobGbaLWV6Mhoh5VjR56BxkSAvjp9_0ZVGoqXZrNMYKq_L92dIQ/exec';
+
+/* ===================== 기본값 ===================== */
+const WD = ['일', '월', '화', '수', '목', '금', '토'];
+const PHONE = '055-755-7502';
+const DEFAULT_DATA = {
+  notices: [], closed: [],
+  hours: [
+    { weekday: 1, is_open: true, open: '09:00', close: '18:00', bs: '13:00', be: '14:00' },
+    { weekday: 2, is_open: true, open: '09:00', close: '18:00', bs: '13:00', be: '14:00' },
+    { weekday: 3, is_open: true, open: '09:00', close: '18:00', bs: '13:00', be: '14:00' },
+    { weekday: 4, is_open: true, open: '09:00', close: '13:00', bs: '', be: '' },
+    { weekday: 5, is_open: true, open: '09:00', close: '18:00', bs: '13:00', be: '14:00' },
+    { weekday: 6, is_open: true, open: '09:00', close: '13:00', bs: '', be: '' },
+    { weekday: 0, is_open: false, open: '', close: '', bs: '', be: '' }
+  ]
+};
+
+/* ===================== 작은 도구 ===================== */
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const nowKST = () => new Date(Date.now() + 9 * 3600e3);
+const todayKST = () => nowKST().toISOString().slice(0, 10);
+const addDays = (d, n) => { const x = new Date(d + 'T00:00:00Z'); x.setUTCDate(x.getUTCDate() + n); return x.toISOString().slice(0, 10); };
+const toMin = t => { const [h, m] = String(t).split(':').map(Number); return h * 60 + m; };
+const fmtDate = d => { const x = new Date(d + 'T00:00:00Z'); return `${x.getUTCMonth() + 1}월 ${x.getUTCDate()}일 (${WD[x.getUTCDay()]})`; };
+const fmtDot = d => String(d || '').replace(/-/g, '.');
+const store = {
+  get(k, s = localStorage) { try { return JSON.parse(s.getItem(k)); } catch (_) { return null; } },
+  set(k, v, s = localStorage) { try { v == null ? s.removeItem(k) : s.setItem(k, JSON.stringify(v)); } catch (_) {} }
+};
+let toastTimer;
+function toast(msg) {
+  const t = $('toast'); t.textContent = msg; t.hidden = false;
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => t.hidden = true, 2600);
+}
+
+/* ===================== 서버 연결 ===================== */
+const remote = {
+  async get() {
+    const r = await fetch(API_URL + (API_URL.includes('?') ? '&' : '?') + 'action=data&t=' + Date.now());
+    return r.json();
+  },
+  async post(payload) {
+    const r = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) });
+    return r.json();
+  }
+};
+
+// 시연 모드: 이 화면 안에서만 저장되는 가짜 서버
+const demo = (() => {
+  const d0 = todayKST();
+  const db = JSON.parse(JSON.stringify(DEFAULT_DATA));
+  db.notices = [
+    { id: 'n1', date: addDays(d0, -2), pinned: true, title: '11월 학회 휴진 안내', body: '원장 학회 참석으로 아래 날짜에 휴진합니다.\n진료에 참고 부탁드립니다.', example: true },
+    { id: 'n2', date: addDays(d0, -9), pinned: false, title: '독감 예방접종 시작', body: '올해 독감 예방접종을 시작합니다.\n만 65세 이상 어르신은 무료 접종 대상입니다. 신분증을 지참해 주세요.', example: true },
+    { id: 'n3', date: addDays(d0, -20), pinned: false, title: '국가 건강검진 안내', body: '올해 건강검진 대상자는 연말 전에 검진을 받으셔야 합니다.\n검진 전날 밤 9시 이후로는 금식해 주세요.', example: true }
+  ];
+  db.closed = [{ day: addDays(d0, 12), reason: '학회', example: true }];
+  let token = null, seq = 100;
+  const wait = () => new Promise(r => setTimeout(r, 250));
+  const fail = (error, auth) => ({ ok: false, error, auth: !!auth });
+  return {
+    async get() { await wait(); return { ok: true, data: JSON.parse(JSON.stringify(db)) }; },
+    async post(p) {
+      await wait();
+      if (p.action === 'login') {
+        if (p.password !== 'demo') return fail('비밀번호가 맞지 않습니다. 시연 비밀번호는 demo 입니다.');
+        token = 'demo-' + Date.now(); return { ok: true, token };
+      }
+      if (!p.token || p.token !== token) return fail('로그인 시간이 지났습니다. 다시 로그인해 주세요.', true);
+      const it = p.item || {};
+      switch (p.action) {
+        case 'logout': token = null; return { ok: true };
+        case 'saveNotice': {
+          const n = db.notices.find(x => x.id === it.id);
+          const images = Array.isArray(it.images)
+            ? it.images.map(im => im.data ? { id: 'img' + (++seq), url: `data:${im.type};base64,${im.data}` } : (n.images || []).find(o => o.id === im.id)).filter(Boolean)
+            : (n ? n.images || [] : []);
+          if (!String(it.title || '').trim()) return fail('제목을 입력해 주세요.');
+          if (!String(it.body || '').trim() && !images.length) return fail('내용을 쓰거나 사진을 올려 주세요.');
+          if (n) Object.assign(n, { title: it.title.trim(), body: it.body.trim(), pinned: !!it.pinned, images });
+          else db.notices.push({ id: 'n' + (++seq), date: todayKST(), title: it.title.trim(), body: it.body.trim(), pinned: !!it.pinned, images });
+          break;
+        }
+        case 'deleteNotice': db.notices = db.notices.filter(x => x.id !== p.id); break;
+        case 'saveHours': db.hours = p.hours; break;
+        case 'addClosed':
+          if (!p.day) return fail('날짜를 선택해 주세요.');
+          if (p.day < todayKST()) return fail('오늘 이후 날짜를 선택해 주세요.');
+          db.closed = db.closed.filter(c => c.day !== p.day).concat({ day: p.day, reason: (p.reason || '').trim() })
+            .sort((a, b) => a.day.localeCompare(b.day));
+          break;
+        case 'deleteClosed': db.closed = db.closed.filter(c => c.day !== p.day); break;
+        default: return fail('알 수 없는 요청입니다.');
+      }
+      return { ok: true, data: JSON.parse(JSON.stringify(db)) };
+    }
+  };
+})();
+
+const server = API_URL ? remote : demo;
+const DEMO = !API_URL;
+
+/* ===================== 화면 그리기 ===================== */
+let data = store.get('kny-data') || DEFAULT_DATA;
+let loaded = false, loadFailed = false, noticeLimit = 5;
+
+function renderAll() { renderSchedule(); renderNotices(); }
+
+function renderSchedule() {
+  const hours = (data.hours && data.hours.length === 7) ? data.hours : DEFAULT_DATA.hours;
+  const now = nowKST(), w = now.getUTCDay(), mins = now.getUTCHours() * 60 + now.getUTCMinutes(), today = todayKST();
+  // 진료시간이 같은 요일끼리 묶어서 보여줍니다. (예: 월·화·수·금 / 목·토 / 일)
+  const groups = [];
+  [1, 2, 3, 4, 5, 6, 0].forEach(d => {
+    const h = hours.find(x => x.weekday === d) || { is_open: false };
+    const key = h.is_open && h.open ? [h.open, h.close, h.bs, h.be].join('|') : 'off';
+    let g = groups.find(x => x.key === key);
+    if (!g) groups.push(g = { key, h, days: [] });
+    g.days.push(d);
+  });
+  $('schedBody').innerHTML = groups.map(g => {
+    const h = g.h, open = g.key !== 'off';
+    const half = open && toMin(h.close) <= 13 * 60 && !(h.bs && h.be);
+    const cell = open
+      ? `<td>${esc(h.open)} ~ ${esc(h.close)}${h.bs && h.be ? `<span class="brk">점심시간 ${esc(h.bs)} ~ ${esc(h.be)}</span>` : ''}</td>`
+      : `<td class="off">${g.days.length === 1 && g.days[0] === 0 ? '정기휴무' : '휴진'}</td>`;
+    return `<tr class="${g.days.includes(w) ? 'is-today' : ''}"><th>${g.days.map(d => WD[d]).join('·')}${half ? '<span class="half">(오전진료)</span>' : ''}</th>${cell}</tr>`;
+  }).join('');
+
+  const closed = data.closed || [];
+  const upcoming = closed.filter(c => c.day >= today && c.day <= addDays(today, 45)).sort((a, b) => a.day.localeCompare(b.day));
+  $('closedUp').hidden = !upcoming.length;
+  $('closedUp').innerHTML = upcoming.length
+    ? `<b>휴진 예정일</b><ul>${upcoming.map(c => `<li>${fmtDate(c.day)}${c.reason ? ' · ' + esc(c.reason) : ''}${c.example ? '<span class="ex">예시</span>' : ''}</li>`).join('')}</ul>` : '';
+
+  const h = hours.find(x => x.weekday === w) || { is_open: false };
+  let open = false, text;
+  if (closed.some(c => c.day === today) || !h.is_open || !h.open) text = '오늘은 휴진입니다';
+  else if (mins < toMin(h.open)) text = `오늘 ${h.open}에 진료를 시작합니다`;
+  else if (mins >= toMin(h.close)) text = '오늘 진료가 끝났습니다';
+  else if (h.bs && h.be && mins >= toMin(h.bs) && mins < toMin(h.be)) text = `지금은 점심시간입니다 (${h.be} 재개)`;
+  else { open = true; text = `지금 진료 중 · ${h.close}까지`; }
+  $('todayDot').classList.toggle('open', open);
+  $('todayText').textContent = text;
+}
+
+const sortedNotices = () => [...(data.notices || [])].sort((a, b) => (b.pinned - a.pinned) || String(b.date).localeCompare(String(a.date)));
+const isAdmin = () => document.body.classList.contains('admin');
+
+function renderNotices() {
+  const box = $('noticeList');
+  const list = sortedNotices();
+  const openIds = new Set([...box.querySelectorAll('details[open]')].map(d => d.dataset.id));
+  if (!list.length) {
+    box.innerHTML = !loaded && !loadFailed ? '<p class="loading">공지사항을 불러오는 중입니다…</p>'
+      : loadFailed ? `<p class="loadfail">공지사항을 불러오지 못했습니다. 궁금한 점은 ${PHONE}으로 문의해 주세요.</p>`
+      : '<p class="empty">등록된 공지가 없습니다.</p>';
+  } else {
+    box.innerHTML = list.slice(0, noticeLimit).map(n => `
+      <details data-id="${esc(n.id)}"${openIds.has(String(n.id)) ? ' open' : ''}>
+        <summary><span class="tt">${n.pinned ? '<span class="tag-pin">공지</span>' : ''}${esc(n.title)}${(n.images || []).length ? `<span class="has-img">사진 ${n.images.length}</span>` : ''}${n.example ? '<span class="ex">예시</span>' : ''}</span><span class="dt">${fmtDot(n.date)}</span></summary>
+        <div class="body">${esc(n.body)}${(n.images || []).length ? `<div class="nimgs">${n.images.map((im, k) =>
+          `<a href="${esc(im.url)}" target="_blank" rel="noopener"><img src="${esc(im.url)}" alt="${esc(n.title)} 사진 ${k + 1}" loading="lazy"></a>`).join('')}</div>` : ''}<div class="mini admin-only">
+          <button type="button" data-act="edit">수정</button>
+          <button type="button" data-act="pin">${n.pinned ? '고정 풀기' : '맨 위 고정'}</button>
+          <button type="button" data-act="del" class="del">삭제</button>
+        </div></div>
+      </details>`).join('');
+  }
+  $('noticeMore').hidden = list.length <= noticeLimit;
+  const pin = list.find(n => n.pinned);
+  $('pinbar').hidden = !pin;
+  if (pin) { $('pinbar').innerHTML = `<span class="k">공지</span><span class="t">${esc(pin.title)}</span>`; $('pinbar').dataset.id = pin.id; }
+}
+
+async function load() {
+  try {
+    const res = await server.get();
+    if (!res.ok) throw new Error(res.error);
+    data = res.data; loaded = true; loadFailed = false;
+    if (!DEMO) store.set('kny-data', data);
+  } catch (_) {
+    loadFailed = !loaded && !(data.notices && data.notices.length);
+  }
+  renderAll();
+}
+
+/* ===================== 관리자 ===================== */
+let token = store.get('kny-token', sessionStorage);
+
+function setAdmin(on) {
+  document.body.classList.toggle('admin', on);
+  $('adminbar').hidden = !on;
+  $('adminLink').textContent = on ? '관리자 모드 사용 중' : '관리자';
+}
+
+async function call(payload, errEl) {
+  errEl && (errEl.textContent = '');
+  let res;
+  try { res = await server.post(Object.assign({ token }, payload)); }
+  catch (_) { res = { ok: false, error: '인터넷 연결을 확인한 뒤 다시 시도해 주세요.' }; }
+  if (!res.ok) {
+    if (res.auth) { logoutLocal(); openDlg('loginDlg'); $('loginErr').textContent = res.error; }
+    else if (errEl) errEl.textContent = res.error;
+    else toast(res.error);
+    return null;
+  }
+  if (res.data) { data = res.data; loaded = true; loadFailed = false; if (!DEMO) store.set('kny-data', data); renderAll(); }
+  return res;
+}
+
+function busy(btn, on, label) {
+  if (on) { btn.dataset.label = btn.textContent; btn.textContent = label || '저장 중…'; btn.disabled = true; }
+  else { btn.textContent = btn.dataset.label || btn.textContent; btn.disabled = false; }
+}
+
+function openDlg(id) { const d = $(id); if (!d.open) d.showModal(); }
+function closeDlg(id) { const d = $(id); if (d.open) d.close(); }
+document.querySelectorAll('dialog [data-close]').forEach(b => b.addEventListener('click', () => b.closest('dialog').close()));
+
+function logoutLocal() { token = null; store.set('kny-token', null, sessionStorage); setAdmin(false); }
+
+$('adminLink').addEventListener('click', () => {
+  if (isAdmin()) { $('adminbar').scrollIntoView({ block: 'start' }); window.scrollTo(0, 0); return; }
+  $('loginPw').value = ''; $('loginErr').textContent = ''; $('demoHint').hidden = !DEMO;
+  openDlg('loginDlg'); $('loginPw').focus();
+});
+$('loginForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const pw = $('loginPw').value;
+  if (!pw) { $('loginErr').textContent = '비밀번호를 입력해 주세요.'; return; }
+  busy($('loginBtn'), true, '확인 중…');
+  const res = await call({ action: 'login', password: pw }, $('loginErr'));
+  busy($('loginBtn'), false);
+  if (!res) return;
+  token = res.token; store.set('kny-token', token, sessionStorage);
+  setAdmin(true); closeDlg('loginDlg'); toast('관리자 모드로 들어왔습니다.');
+});
+$('logoutBtn').addEventListener('click', async () => {
+  const t = token; logoutLocal(); toast('로그아웃했습니다.');
+  try { await server.post({ action: 'logout', token: t }); } catch (_) {}
+});
+
+/* --- 공지 --- */
+let editingNotice = null, nImages = [];
+const MAX_IMAGES = 5;
+function renderThumbs() {
+  $('nThumbs').innerHTML = nImages.map((im, i) => `<div class="thumb"><img src="${esc(im.preview || im.url)}" alt="첨부 사진 ${i + 1}">
+    ${im.data ? '<span class="new">새 사진</span>' : ''}<button type="button" data-i="${i}" aria-label="사진 ${i + 1} 빼기">×</button></div>`).join('');
+  $('nImgCount').textContent = nImages.length ? `${nImages.length} / ${MAX_IMAGES}장` : '';
+  $('nAddImg').disabled = nImages.length >= MAX_IMAGES;
+}
+$('nAddImg').addEventListener('click', () => $('nFile').click());
+$('nThumbs').addEventListener('click', e => {
+  const b = e.target.closest('button[data-i]'); if (!b) return;
+  nImages.splice(+b.dataset.i, 1); renderThumbs();
+});
+// 사진을 가로·세로 최대 1600px, JPEG로 줄여서 올립니다.
+function shrinkImage(file) {
+  return new Promise((resolve, reject) => {
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => {
+      const max = 1600, r = Math.min(1, max / Math.max(img.naturalWidth, img.naturalHeight));
+      const w = Math.round(img.naturalWidth * r), h = Math.round(img.naturalHeight * r);
+      const c = document.createElement('canvas'); c.width = w; c.height = h;
+      const ctx = c.getContext('2d'); ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, w, h); ctx.drawImage(img, 0, 0, w, h);
+      URL.revokeObjectURL(url);
+      const dataUrl = c.toDataURL('image/jpeg', 0.85);
+      resolve({ data: dataUrl.split(',')[1], type: 'image/jpeg', preview: dataUrl });
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('read')); };
+    img.src = url;
+  });
+}
+$('nFile').addEventListener('change', async e => {
+  const files = [...e.target.files].filter(f => /^image\//.test(f.type) || /\.(jpe?g|png|gif|webp|heic|heif)$/i.test(f.name));
+  e.target.value = '';
+  $('nErr').textContent = '';
+  const room = MAX_IMAGES - nImages.length;
+  if (files.length > room) $('nErr').textContent = `사진은 ${MAX_IMAGES}장까지 올릴 수 있어서 ${Math.max(room, 0)}장만 추가했습니다.`;
+  for (const f of files.slice(0, Math.max(room, 0))) {
+    try { nImages.push(await shrinkImage(f)); renderThumbs(); }
+    catch (_) { $('nErr').textContent = `‘${f.name}’ 사진은 열 수 없는 형식입니다. 휴대폰 갤러리에서 다시 골라 주세요.`; }
+  }
+});
+function openNotice(n) {
+  editingNotice = n ? n.id : null;
+  nImages = n && n.images ? n.images.map(im => ({ id: im.id, url: im.url })) : [];
+  renderThumbs();
+  $('noticeTitle').textContent = n ? '공지 수정' : '공지 쓰기';
+  $('nSave').textContent = n ? '수정 저장' : '올리기';
+  $('nTitle').value = n ? n.title : ''; $('nBody').value = n ? n.body : ''; $('nPin').checked = n ? !!n.pinned : false;
+  $('nErr').textContent = '';
+  openDlg('noticeDlg'); $('nTitle').focus();
+}
+$('newNotice').addEventListener('click', () => openNotice(null));
+$('noticeForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const item = { id: editingNotice, title: $('nTitle').value.trim(), body: $('nBody').value.trim(), pinned: $('nPin').checked,
+    images: nImages.map(im => im.data ? { data: im.data, type: im.type } : { id: im.id }) };
+  if (!item.title) return $('nErr').textContent = '제목을 입력해 주세요.';
+  if (!item.body && !item.images.length) return $('nErr').textContent = '내용을 쓰거나 사진을 올려 주세요.';
+  busy($('nSave'), true, nImages.some(im => im.data) ? '사진 올리는 중…' : '저장 중…');
+  const res = await call({ action: 'saveNotice', item }, $('nErr'));
+  busy($('nSave'), false);
+  if (res) { closeDlg('noticeDlg'); toast(editingNotice ? '공지를 수정했습니다.' : '공지를 올렸습니다.'); }
+});
+$('noticeList').addEventListener('click', async e => {
+  const b = e.target.closest('button[data-act]'); if (!b) return;
+  const id = b.closest('details').dataset.id;
+  const n = (data.notices || []).find(x => String(x.id) === id); if (!n) return;
+  if (b.dataset.act === 'edit') openNotice(n);
+  if (b.dataset.act === 'del') askDelete(`‘${n.title}’ 공지를 삭제합니다. 삭제하면 되돌릴 수 없습니다.`, { action: 'deleteNotice', id: n.id }, '공지를 삭제했습니다.');
+  if (b.dataset.act === 'pin') {
+    b.disabled = true;
+    const res = await call({ action: 'saveNotice', item: { id: n.id, title: n.title, body: n.body, pinned: !n.pinned } });
+    b.disabled = false;
+    if (res) toast(n.pinned ? '고정을 풀었습니다.' : '맨 위에 고정했습니다.');
+  }
+});
+$('noticeMore').addEventListener('click', () => { noticeLimit += 5; renderNotices(); });
+$('pinbar').addEventListener('click', () => {
+  setTimeout(() => { const d = $('noticeList').querySelector(`details[data-id="${CSS.escape($('pinbar').dataset.id || '')}"]`); if (d) d.open = true; }, 50);
+});
+
+/* --- 삭제 확인 --- */
+let pendingDelete = null;
+function askDelete(text, payload, done) {
+  pendingDelete = { payload, done };
+  $('confirmText').textContent = text; $('confirmErr').textContent = '';
+  openDlg('confirmDlg');
+}
+$('confirmForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  if (!pendingDelete) return closeDlg('confirmDlg');
+  busy($('confirmBtn'), true, '삭제 중…');
+  const res = await call(pendingDelete.payload, $('confirmErr'));
+  busy($('confirmBtn'), false);
+  if (res) { closeDlg('confirmDlg'); toast(pendingDelete.done); pendingDelete = null; }
+});
+
+/* --- 진료시간 --- */
+$('editHours').addEventListener('click', () => {
+  const hours = (data.hours && data.hours.length === 7) ? data.hours : DEFAULT_DATA.hours;
+  $('hoursBody').innerHTML = [1, 2, 3, 4, 5, 6, 0].map(w => {
+    const h = hours.find(x => x.weekday === w) || { is_open: false, open: '', close: '', bs: '', be: '' };
+    return `<div class="hrow${h.is_open ? '' : ' closed'}" data-w="${w}">
+      <label class="day"><input type="checkbox" class="hOpen" ${h.is_open ? 'checked' : ''}>${WD[w]}<span>${h.is_open ? '진료' : '휴무'}</span></label>
+      <div class="tr"><b>진료</b><input type="time" class="hO" aria-label="${WD[w]}요일 진료 시작" value="${esc(h.open)}">~<input type="time" class="hC" aria-label="${WD[w]}요일 진료 끝" value="${esc(h.close)}"></div>
+      <div class="tr"><b>점심</b><input type="time" class="hBs" aria-label="${WD[w]}요일 점심 시작" value="${esc(h.bs)}">~<input type="time" class="hBe" aria-label="${WD[w]}요일 점심 끝" value="${esc(h.be)}"></div>
+    </div>`;
+  }).join('');
+  $('hoursBody').querySelectorAll('.hOpen').forEach(cb => cb.addEventListener('change', () => {
+    const row = cb.closest('.hrow'); row.classList.toggle('closed', !cb.checked);
+    row.querySelector('.day span').textContent = cb.checked ? '진료' : '휴무';
+  }));
+  $('hErr').textContent = '';
+  openDlg('hoursDlg');
+});
+$('hoursForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const rows = [...$('hoursBody').querySelectorAll('.hrow')].map(tr => ({
+    weekday: +tr.dataset.w, is_open: tr.querySelector('.hOpen').checked,
+    open: tr.querySelector('.hO').value, close: tr.querySelector('.hC').value,
+    bs: tr.querySelector('.hBs').value, be: tr.querySelector('.hBe').value }));
+  const bad = rows.find(r => r.is_open && (!r.open || !r.close || r.open >= r.close));
+  if (bad) return $('hErr').textContent = `${WD[bad.weekday]}요일 진료 시작·종료 시간을 확인해 주세요.`;
+  const badL = rows.find(r => (r.bs && !r.be) || (!r.bs && r.be) || (r.bs && r.be && r.bs >= r.be));
+  if (badL) return $('hErr').textContent = `${WD[badL.weekday]}요일 점심시간을 확인해 주세요. 없으면 둘 다 비워 두세요.`;
+  busy($('hSave'), true);
+  const res = await call({ action: 'saveHours', hours: rows }, $('hErr'));
+  busy($('hSave'), false);
+  if (res) { closeDlg('hoursDlg'); toast('진료시간을 저장했습니다.'); }
+});
+
+/* --- 휴진일 --- */
+function renderClosedList() {
+  const list = (data.closed || []).filter(c => c.day >= todayKST()).sort((a, b) => a.day.localeCompare(b.day));
+  $('cList').innerHTML = list.length
+    ? list.map(c => `<div class="crow"><span>${fmtDate(c.day)} <span style="color:var(--muted)">${esc(c.reason)}</span></span>
+        <button class="btn plain sm" type="button" data-day="${esc(c.day)}">삭제</button></div>`).join('')
+    : '<p class="hint">예정된 휴진일이 없습니다.</p>';
+}
+$('editClosed').addEventListener('click', () => {
+  $('cDay').value = ''; $('cReason').value = ''; $('cErr').textContent = '';
+  $('cDay').min = todayKST();
+  renderClosedList(); openDlg('closedDlg');
+});
+$('closedForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const day = $('cDay').value, reason = $('cReason').value.trim();
+  if (!day) return $('cErr').textContent = '날짜를 선택해 주세요.';
+  if (day < todayKST()) return $('cErr').textContent = '오늘 이후 날짜를 선택해 주세요.';
+  busy($('cAdd'), true, '추가 중…');
+  const res = await call({ action: 'addClosed', day, reason }, $('cErr'));
+  busy($('cAdd'), false);
+  if (res) { $('cDay').value = ''; $('cReason').value = ''; renderClosedList(); toast('휴진일을 추가했습니다.'); }
+});
+$('cList').addEventListener('click', async e => {
+  const b = e.target.closest('button[data-day]'); if (!b) return;
+  b.disabled = true; b.textContent = '삭제 중…';
+  const res = await call({ action: 'deleteClosed', day: b.dataset.day }, $('cErr'));
+  if (res) { renderClosedList(); toast('휴진일을 삭제했습니다.'); } else { b.disabled = false; b.textContent = '삭제'; }
+});
+
+/* ===================== 비급여 진료비 창 ===================== */
+function openFees() { openDlg('feesDlg'); $('feesDlg').scrollTop = 0; }
+document.querySelectorAll('[data-fees]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); openFees(); }));
+$('feesDlg').addEventListener('click', e => { if (e.target === $('feesDlg')) $('feesDlg').close(); });   // 바깥 어두운 곳을 눌러도 닫힘
+if (location.hash === '#fees') openFees();
+
+/* ===================== 시작 ===================== */
+if (token) setAdmin(true);
+renderAll();
+load();
+setInterval(renderSchedule, 60000);
+</script>
+</body>
+</html>
