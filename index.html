@@ -49,9 +49,7 @@ section[id] { scroll-margin-top: calc(70px + env(safe-area-inset-top, 0px)); }
 .nav .links { display: flex; gap: 18px; margin-left: auto; font-size: 15.5px; }
 .nav .links a { color: var(--muted); text-decoration: none; }
 .nav .links a:hover { color: var(--fg); }
-.nav .cta { background: var(--accent); color: var(--accent-ink); text-decoration: none; padding: 8px 14px; border-radius: 99px;
-  font-size: 15px; font-weight: 600; white-space: nowrap; }
-@media (max-width: 760px) { .nav .links { display: none; } .nav .cta { margin-left: auto; } }
+@media (max-width: 760px) { .nav .links { display: none; } }
 
 /* 관리자 띠 */
 .adminbar { background: var(--admin-soft); color: var(--admin); font-size: 15px; }
@@ -253,7 +251,6 @@ dialog .demo-hint { background: var(--admin-soft); color: var(--admin); border-r
       <a href="#notice">공지사항</a><a href="#care">진료 안내</a><a href="#doctor">의료진</a>
       <a href="#fees" data-fees>비급여 진료비</a><a href="#hours">진료시간</a><a href="#map">오시는 길</a>
     </div>
-    <a class="cta" href="#hours">진료시간</a>
   </div>
 </nav>
 
