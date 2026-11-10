@@ -49,7 +49,21 @@ section[id] { scroll-margin-top: calc(70px + env(safe-area-inset-top, 0px)); }
 .nav .links { display: flex; gap: 18px; margin-left: auto; font-size: 15.5px; }
 .nav .links a { color: var(--muted); text-decoration: none; }
 .nav .links a:hover { color: var(--fg); }
-@media (max-width: 760px) { .nav .links { display: none; } }
+.menu-btn { display: none; }
+@media (max-width: 760px) {
+  .menu-btn { display: inline-flex; flex-direction: column; justify-content: center; gap: 5px; margin-left: auto;
+    width: 44px; height: 44px; padding: 0 10px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); cursor: pointer; }
+  .menu-btn span { display: block; height: 2px; border-radius: 2px; background: var(--fg); transition: transform .2s, opacity .2s; }
+  .nav.open .menu-btn span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav.open .menu-btn span:nth-child(2) { opacity: 0; }
+  .nav.open .menu-btn span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .nav .links { display: none; position: absolute; left: 0; right: 0; top: 100%; flex-direction: column; gap: 0; margin: 0;
+    background: var(--surface); border-bottom: 1px solid var(--line); box-shadow: 0 10px 24px rgba(0,0,0,.12); font-size: 18px; }
+  .nav.open .links { display: flex; }
+  .nav .links a { padding: 15px 20px; border-top: 1px solid var(--line); color: var(--fg); }
+  .nav .links a:active { background: var(--sunk); }
+}
+@media (max-width: 760px) and (prefers-reduced-motion: reduce) { .menu-btn span { transition: none; } }
 
 /* 관리자 띠 */
 .adminbar { background: var(--admin-soft); color: var(--admin); font-size: 15px; }
@@ -247,7 +261,10 @@ dialog .demo-hint { background: var(--admin-soft); color: var(--admin); border-r
 <nav class="nav" aria-label="주요 메뉴">
   <div class="in">
     <a class="brand" href="#top"><b>김나영</b>내과의원</a>
-    <div class="links">
+    <button class="menu-btn" id="menuBtn" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="links" id="navLinks">
       <a href="#notice">공지사항</a><a href="#care">진료 안내</a><a href="#doctor">의료진</a>
       <a href="#fees" data-fees>비급여 진료비</a><a href="#hours">진료시간</a><a href="#map">오시는 길</a>
     </div>
@@ -918,6 +935,18 @@ $('cList').addEventListener('click', async e => {
   const res = await call({ action: 'deleteClosed', day: b.dataset.day }, $('cErr'));
   if (res) { renderClosedList(); toast('휴진일을 삭제했습니다.'); } else { b.disabled = false; b.textContent = '삭제'; }
 });
+
+/* ===================== 휴대폰 메뉴 (☰) ===================== */
+const navEl = document.querySelector('.nav');
+function setMenu(open) {
+  navEl.classList.toggle('open', open);
+  $('menuBtn').setAttribute('aria-expanded', open);
+  $('menuBtn').setAttribute('aria-label', open ? '메뉴 닫기' : '메뉴 열기');
+}
+$('menuBtn').addEventListener('click', () => setMenu(!navEl.classList.contains('open')));
+$('navLinks').addEventListener('click', e => { if (e.target.closest('a')) setMenu(false); });
+document.addEventListener('click', e => { if (!navEl.contains(e.target)) setMenu(false); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
 
 /* ===================== 비급여 진료비 창 ===================== */
 function openFees() { openDlg('feesDlg'); $('feesDlg').scrollTop = 0; }
